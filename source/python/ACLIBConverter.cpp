@@ -1,9 +1,6 @@
 #include "Converter.hpp"
 
 #include <Python.h>
-#include <algorithm>
-#include <iomanip>
-#include <iostream>
 
 namespace ACLIB
 {
@@ -92,19 +89,11 @@ namespace ACLIB
 
         PyEval_InitThreads();
 
-        //        if(PyType_Ready(&EventLoopType) < 0)
-        //        {
-        //            // err
-        //            printf("Could not init EventLoop type");
-        //        }
-
         if(!module)
         {
             // err
             printf("Could not init aclib_converter module.");
         }
-
-        // PyModule_AddObject(module, "EventLoop", reinterpret_cast<PyObject*>(&EventLoopType));
 
         return module;
     }

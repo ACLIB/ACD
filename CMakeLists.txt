@@ -11,11 +11,12 @@ find_package(PythonLibs REQUIRED)
 
 include_directories(
         source/
+        ../Common/
         ${PYTHON_INCLUDE_DIRS})
 
 set(SOURCES
-        source/AC.hpp
-        source/ACLIB.hpp
+        ../Common/AC.hpp
+        ../Common/ACLIB.hpp
 
         source/python/ACLIBConverter.cpp
         source/Converter.cpp
