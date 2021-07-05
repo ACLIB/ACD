@@ -1,6 +1,6 @@
 #include "Converter.hpp"
 
-#include <Python.h>
+#include "python/PyModule.hpp"
 
 namespace ACLIB
 {
@@ -69,33 +69,17 @@ namespace ACLIB
         return PyBool_FromLong(Converter::unpackACD(file, destination));
     }
 
-    static PyMethodDef module_methods[] = {
-        {"hash", hash, METH_VARARGS, "doc"},
-        {"decrypt", decrypt, METH_VARARGS, "doc"},
-        {"unpack", unpack, METH_VARARGS, "doc"},
-        {nullptr, nullptr, 0, nullptr}};
-
-    struct PyModuleDef aclib_module = {
-        PyModuleDef_HEAD_INIT,
-        "aclib_converter",
-        "Assetto Corsa 'all in one' python module that provides an interface for shared memory "
-        "pages.",
-        -1,
-        module_methods};
-
     PyMODINIT_FUNC PyInit_aclib_converter()
     {
-        PyObject* module = PyModule_Create(&aclib_module);
+        static auto module = PyModule("aclib_converter");
+        module.addMethod("hash", hash);
+        module.addMethod("decrypt", decrypt);
+        module.addMethod("unpack", unpack);
+        module.init();
 
         PyEval_InitThreads();
 
-        if(!module)
-        {
-            // err
-            printf("Could not init aclib_converter module.");
-        }
-
-        return module;
+        return module.getModule();
     }
 
 }  // namespace ACLIB
