@@ -3,6 +3,7 @@
 #include "ACLIB.hpp"
 
 #include <sstream>
+#include <fstream>
 #include <sys/stat.h>
 
 namespace ACLIB
